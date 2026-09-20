@@ -1,8 +1,29 @@
 # Classic-Fourier-Transformation
-Función para calcular la transformada de Fourirer en Matlab. La función tiene como entrada una serie de tiempo estacionaria (x) con un paso de tiempo \delta-t constante (paso de tiempo de la serie x). La salida nos entrega las componentes A_0, A_q y B_q como vectores columna.
-La función está basada en la Transformada Clásica de Fourier expuesta en el libro Random data (2011).
 
-El código cft_ejemplo.m corresponde a un ejercicio del curso Series de Tiempo y Análisis Espectral de Magister en Geofísica. Consta en la creación de una serie estacional con 5 armónicos además de ruido para simular datos reales. Se calculan las varianzas mediante un análisis tras una transformada de Fourier con la función Clasic Fourier Transformation (cft.m) para cada armónico.
-El código welch_metod.m también consiste en un ejercicio, donde se calcula la densidad del espectro mediante el método de Welch, aplicando ventanas de Hanning a cada armónico.
- 
-Bendat, J. S., \& Piersol, A. G. (2011). Random data: analysis and measurement procedures. John Wiley & Sons.
+Demo interactiva de la **Transformada Clásica de Fourier** (Bendat & Piersol, 2011, *Random Data*): arma una señal sumando armónicos y ruido, y mira su descomposición en frecuencias en tiempo real.
+
+🔗 **Demo en vivo:** _pendiente de desplegar_
+
+## Qué hace
+
+Elegí el número de armónicos, su periodo y amplitud, y el nivel de ruido — la app recalcula al instante la serie sintética y su espectro de varianza, marcando con líneas punteadas dónde deberían caer los picos según las frecuencias reales que elegiste. También confirma en vivo el teorema de Parseval (la varianza de la señal debe ser igual a la suma del espectro).
+
+## Cómo está construido
+
+- **`fourier/cft.py`** — puerto a Python de la función original `cft.m` (ver [`matlab_exercise/cft.m`](matlab_exercise/cft.m)), con una corrección: el término de Nyquist (cuando N es par) se agrega como componente aparte en vez de sobrescribir el último armónico general, y se contabiliza en el espectro de varianza sin el factor 1/2 que sí llevan los demás términos, tal como exige Parseval.
+- Verificado en [`fourier/tests/test_cft.py`](fourier/tests/test_cft.py): reconstrucción exacta de la señal, teorema de Parseval, y contraste de magnitudes contra la FFT de NumPy.
+- **`fourier/app.py`** — interfaz interactiva en Streamlit.
+
+## Correr en local
+
+```bash
+cd fourier
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+## Ejercicios originales (MATLAB)
+
+`cft.m` (la función), `cft_ejemplo.m` (armónicos + ruido) y `welch_metod.m` (densidad espectral por el método de Welch, con ventanas de Hanning) del curso Series de Tiempo y Análisis Espectral, Magíster en Geofísica, quedaron en [`matlab_exercise/`](matlab_exercise/).
+
+Bendat, J. S., & Piersol, A. G. (2011). *Random data: analysis and measurement procedures*. John Wiley & Sons.
