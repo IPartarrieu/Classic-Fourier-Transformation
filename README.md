@@ -2,11 +2,13 @@
 
 Demo interactiva de la **Transformada Clásica de Fourier** (Bendat & Piersol, 2011, *Random Data*): arma una señal sumando armónicos y ruido, y mira su descomposición en frecuencias en tiempo real.
 
-🔗 **Demo en vivo:** _pendiente de desplegar_
+🔗 **Demo en vivo:** [classic-fourier-tr-nvubqfatfs2ra5ty2mqfhs.streamlit.app](https://classic-fourier-tr-nvubqfatfs2ra5ty2mqfhs.streamlit.app/)
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://classic-fourier-tr-nvubqfatfs2ra5ty2mqfhs.streamlit.app/)
 
 ## Qué hace
 
-Elegí el número de armónicos, su periodo y amplitud, y el nivel de ruido — la app recalcula al instante la serie sintética y su espectro de varianza, marcando con líneas punteadas dónde deberían caer los picos según las frecuencias reales que elegiste. También confirma en vivo el teorema de Parseval (la varianza de la señal debe ser igual a la suma del espectro).
+Elige el número de armónicos, su periodo y amplitud, y el nivel de ruido — la app recalcula al instante la serie sintética y su espectro de varianza, marcando con líneas punteadas dónde deberían caer los picos según las frecuencias reales que elegiste. También confirma en vivo el teorema de Parseval (la varianza de la señal debe ser igual a la suma del espectro).
 
 ## Cómo está construido
 
