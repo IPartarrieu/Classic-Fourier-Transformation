@@ -30,6 +30,9 @@ with st.sidebar:
     ruido = st.slider("Desviación estándar del ruido", 0.0, 3.0, 0.5, 0.1)
     semilla = st.number_input("Semilla aleatoria", 0, 9999, 0)
 
+    st.header("Visualización")
+    n_mostrar = st.slider("Armónicos individuales a mostrar", 0, n_arm, min(n_arm, 3))
+
 t = np.arange(1, N + 1) * dt
 armonicos = [amps[i] * np.sin(2 * np.pi * t / periods[i]) for i in range(n_arm)]
 S = np.sum(armonicos, axis=0)
@@ -65,6 +68,20 @@ col1, col2, col3 = st.columns(3)
 col1.metric("Varianza de x", f"{np.var(x):.3f}")
 col2.metric("Σ espectro (Parseval)", f"{ev.sum():.3f}")
 col3.metric("Armónico dominante", f"{freqs[np.argmax(ev)]:.4f} [1/dt]")
+
+if n_mostrar > 0:
+    st.subheader(f"Primeros {n_mostrar} armónicos que componen la serie")
+    fig3, axes = plt.subplots(n_mostrar, 1, figsize=(7, 1.8 * n_mostrar), sharex=True)
+    axes = np.atleast_1d(axes)
+    for i in range(n_mostrar):
+        axes[i].plot(t, armonicos[i], color="#2980b9", lw=1)
+        axes[i].set_ylabel("Amplitud")
+        axes[i].set_title(f"Armónico {i+1} — periodo {periods[i]}, amplitud {amps[i]}", fontsize=10)
+        axes[i].grid(alpha=0.3)
+    axes[-1].set_xlabel("Tiempo")
+    fig3.tight_layout()
+    st.pyplot(fig3)
+    plt.close(fig3)
 
 with st.expander("¿Cómo se calcula?"):
     st.markdown(
